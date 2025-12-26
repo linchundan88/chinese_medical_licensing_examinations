@@ -21,7 +21,7 @@ def parse_result(prediction):
     # prediction_str = prediction[0: 20]
 
     list_patterns = [r'正确答案([ABCDE])', r'正确答案选项是([ABCDE])', r'选项([ABCDE])', r'答案选项([ABCDE])', r'正确答案是选项([ABCDE])',
-                    r'正确答案是([ABCDE])', r'正确答案编号([ABCDE])', r'正确答案为选项([ABCDE])', r'答案选项([ABCDE])',
+                    r'正确答案是([ABCDE])', r'正确答案编号([ABCDE])', r'正确答案为选项([ABCDE])', r'答案选项([ABCDE])', r'答案是([ABCDE])',
                     r'答案([ABCDE])',  r'答案为选项([ABCDE])',  r'正确答案的编号是([ABCDE])',  r'正确答案的选项是([ABCDE])', r'最正确的答案是选项([ABCDE])']
     for pattern in list_patterns:
         match = re.search(pattern, prediction)
@@ -84,6 +84,15 @@ def process_llm_prediction(chat_client, model_name, str_instruction, input_text_
             model=model_name,
             messages=[{'role': 'system', 'content': str_instruction},
                       {'role': 'user', 'content': input_text}],
+
+            # https://www.volcengine.com/docs/82379/1330626?lang=zh
+            # extra_body={
+            #     "thinking": {
+            #         "type": "disabled",
+            #         # "type": "enabled",
+            #     }
+            # }
+
             # extra_body={"enable_thinking": False}   # useless
             # https://platform.openai.com/docs/api-reference/completions/create#chat-create-stop
             # A Temperature of 0, a Top K of 1, or a Top P of 0 is the same as replacing softmax with the argmax formula.
@@ -95,8 +104,10 @@ def process_llm_prediction(chat_client, model_name, str_instruction, input_text_
         error_msg = f"System Error: {e}"
         return error_msg
 
-    prediction = completion.choices[0].message.content
+    if completion.choices is None:
+        return 'completion.choices is None'
 
+    prediction = completion.choices[0].message.content
     return prediction
 
 
