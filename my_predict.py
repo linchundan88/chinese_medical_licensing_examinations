@@ -10,7 +10,8 @@ from openpyxl import Workbook
 parser = argparse.ArgumentParser()
 # 'gpt-5.1', 'gpt-5.1-chat-latest', 'gpt-5.1', 'gpt-5-chat-latest', 'gemini-3-pro-preview' Public preview Release date: November 18, 2025
 # Qwen-plus and Deepseek-v3.1 support mixed thinking mode, and disable thinking mode by default.
-parser.add_argument('--model_name', default='gemini-3-pro-preview')  # deepseek-v3.1 qwen-plus qwen3:32b  gpt-5.1-chat-latest gemini-3-pro-preview
+# deepseek-v3.1 deepseek-v3.2 deepseek-cha qwen-plus qwen3:32b  gpt-5.1-chat-latest gemini-3-pro-preview  claude-sonnet-4-5  doubao-seed-1.6
+parser.add_argument('--model_name', default='doubao-seed-1.6')
 parser.add_argument('--examination_type', default='Chinese_Medical_Licensing_Examination')
 parser.add_argument('--instruction_no', type=int, default=0)
 parser.add_argument('--thinking_suffix', default='')  # /think  /no_think
@@ -107,6 +108,27 @@ Chat GPT 5.1
 execution time: 7066.39 seconds
 
 gemini-3-pro-preview
+start 751.6476 元   411.9346 元  339 RMB
 execution time: 95896.81 seconds
+execution time: 46598.24 seconds  2025—12-14
+
+
+DeepSeek-V3.2 
+execution time: 5014.31 seconds ali cloud
+deepseek platform  execution time: 3514.51 seconds
+
+
+gpt-5.2-chat-latest
+8 RMB
+execution time: 9316.75 seconds
+
+claude-sonnet-4-5   it is a thinking model.
+182 RMB
+execution time: 32203.30 seconds
+
+doubao-seed-1.6  
+3.8 RMB
+execution time: 37557.77 seconds
+
 
 '''
